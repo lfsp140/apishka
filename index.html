@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lesson 2.6</title>
+    <link rel="stylesheet" href="style4.css" type="text/css" />
+</head>
+<body>
+    <div class='wrap'>
+        <h2 class="wrap__title">Создаем посты</h2>
+        <hr class="wrap__hr">
+        <div class="wrap__menu">
+           <div class="wrap__menu_input">
+                <input type="text" class="wrap__menu_input_item" 
+                id="menuInput" placeholder="enter text"/>
+           </div>
+           <div class="wrap__menu_btn">
+                <button class="wrap__menu_btn_item" id="startBtn" onclick = 'startRender()'>
+                    Start
+                </button>
+                <button class="wrap__menu_btn_item" id="createBtn" onclick = 'arrRender()'>
+                    Create
+                </button>
+                <button class="wrap__menu_btn_item" id="renderBtn" onclick = 'clean()'>
+                    Clear
+                </button>
+           </div>
+        </div>
+        <div class='wrap__content' id="arrayList">
+           
+        </div>
+    </div>
+    <script src="api_j4.js"></script>
+</body>
+</html>
