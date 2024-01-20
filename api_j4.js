@@ -1,6 +1,6 @@
 let postArr = []
 let idCounter = 0;
-/* window.localStorage.removeItem('null'); */
+window.localStorage.removeItem('tema');
 
 const startRender = () => {
     fetch('https://jsonplaceholder.typicode.com/comments')
