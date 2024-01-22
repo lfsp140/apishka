@@ -4,12 +4,13 @@ window.localStorage.removeItem('tema');
 window.localStorage.removeItem('null');
 
 const startRender = () => {
-    fetch('https://jsonplaceholder.typicode.com/comments')
+    fetch('https://jsonplaceholder.typicode.com/users')
     .then((response) => response.json())
     .then((json) => {
         postArr = json;
         productRender(postArr, 'arrayList');
     });
+    idCounter = 10;
 }
 
 const arrRender = () => {
@@ -23,18 +24,19 @@ const arrRender = () => {
     }
     else {
         let obj = {
-            postId: 101,
             id: idCounter,
-            name: 'odio adipisci rerum aut animi',
-            email: 'Jayne_Kuhic@sydney.com',
-            body: `${k.value}`
+            name: 'Leanne Graham',
+            body: 'odio adipisci rerum aut animi',
+            company: {
+                name: `${k.value}`
+            }
         };
 
         addPostToLocalStorage(idCounter, k.value);
 
         postArr.push(obj);
 
-        fetch('https://jsonplaceholder.typicode.com/comments', {
+        fetch('https://jsonplaceholder.typicode.com/users', {
             method: 'POST',
             body: JSON.stringify(obj),
             headers: {
@@ -42,7 +44,6 @@ const arrRender = () => {
             },
         })
         .then((response) => response.json())
-        /* .then((json) => console.log(json)); */
 
         productRender(postArr, 'arrayList');
         k.value = '';
@@ -56,7 +57,7 @@ const deleteElement = (event) => {
     postArr = postArr.filter(item => item.id !== shortId);
     productRender(postArr, 'arrayList');
     window.localStorage.removeItem(`${shortId}`);
-    fetch(`https://jsonplaceholder.typicode.com/comments/${shortId}`, {
+    fetch(`https://jsonplaceholder.typicode.com/users/${shortId}`, {
         method: 'DELETE',
     });
 }
@@ -65,16 +66,17 @@ const editElement = (event) => {
     let aidi = event.target.id;
     let shortId = Number(aidi.slice(2));
     let elem = postArr.find(obj => obj.id === shortId);
-    let okno = prompt('Введите текст:', `${elem.body}`);
-    elem.body = okno;
-    fetch(`https://jsonplaceholder.typicode.com/comments/${shortId}`, {
+    let okno = prompt('Введите текст:', `${elem.company.name}`);
+    elem.company.name = okno;
+    fetch(`https://jsonplaceholder.typicode.com/users/${shortId}`, {
     method: 'PUT',
     body: JSON.stringify({
-        postId: 101,
         id: shortId,
-        name: 'odio adipisci rerum aut animi',
-        email: 'Jayne_Kuhic@sydney.com',
-        body: `${okno}`
+        name: 'Leanne Graham',
+        body: 'odio adipisci rerum aut animi',
+        company: {
+            name: `${okno}`
+        }
     }),
     headers: {
         'Content-type': 'application/json; charset=UTF-8',
@@ -97,7 +99,7 @@ const productRender = (arr,htmlId) => {
     arr.map(item => {
          renderRow += `<div class='wrap__content_item' id='${item.id}'>
                             <div class='wrap__content_text'>
-                                ${item.body}
+                                ${item.company.name}
                             </div>
                             <div class='wrap__content_btn' onclick="editElement(event)">
                                 <button id='${'ed' + item.id}'>Edit</button>
@@ -127,11 +129,13 @@ const checkLocalStorage = () => {
         for (let i = 0; i < lStsize; i++) {
             let currentBody = window.localStorage.getItem(localStorage.key(i))
             let obj = {
-                "postId": 101,
-                "id": Number(localStorage.key(i)),
-                "name": 'odio adipisci rerum aut animi',
-                "email": 'Jayne_Kuhic@sydney.com',
-                "body": `${currentBody}`
+                id: Number(localStorage.key(i)),
+                name: 'Leanne Graham',
+                email: 'Jayne_Kuhic@sydney.com',
+                body: 'odio adipisci rerum aut animi',
+                company: {
+                    name: `${currentBody}`
+                }
             };
             checklocalArr.push(obj);
         }
@@ -158,7 +162,6 @@ checkLocalStorage();
 
 
 window.addEventListener('storage', (evn) => {
-    addPostToLocalStorage(evn.key, evn.newValue);
     checkLocalStorage();
 })
   
