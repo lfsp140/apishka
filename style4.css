@@ -102,10 +102,3 @@ body {
     animation-name: highlight;
     animation-duration: 1s;
   }
-
-.notVisibility {
-    display: none;
-}
-.blueText {
-    color: blue;
-}
